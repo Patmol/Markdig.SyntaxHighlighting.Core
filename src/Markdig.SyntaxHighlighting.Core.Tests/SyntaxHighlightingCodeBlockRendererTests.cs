@@ -123,7 +123,7 @@ var desktop = Environment.SpecialFolder.DesktopDirectory;
             var markdownRenderer = new HtmlRenderer(new StringWriter(builder));
             var codeBlock = GetFencedCodeBlock();
             renderer.Write(markdownRenderer, codeBlock);
-            Assert.Contains("<span style=\"color:#0000FF;\">var</span>", builder.ToString());
+            Assert.Contains("<span class=\"keyword\">var</span>", builder.ToString());
         }
     }
 }

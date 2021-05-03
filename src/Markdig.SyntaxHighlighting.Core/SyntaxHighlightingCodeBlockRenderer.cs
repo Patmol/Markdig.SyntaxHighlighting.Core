@@ -65,7 +65,7 @@ namespace Markdig.SyntaxHighlighting.Core
                 return code;
             }
 
-            var colourizer = new HtmlFormatter();
+            var colourizer = new HtmlClassFormatter();
             return colourizer.GetHtmlString(code, language);
         }
 
