@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>Patmol.Markdig.SyntaxHighlighting.Core</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Cedric Evrard</Authors>
     <Company>Cedric Evrard</Company>
     <RepositoryUrl>https://github.com/Patmol/Markdig.SyntaxHighlighting.Core</RepositoryUrl>
