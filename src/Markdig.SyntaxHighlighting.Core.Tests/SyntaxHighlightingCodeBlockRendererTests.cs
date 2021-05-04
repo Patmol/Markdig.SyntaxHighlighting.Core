@@ -123,6 +123,32 @@ var desktop = Environment.SpecialFolder.DesktopDirectory;
             var markdownRenderer = new HtmlRenderer(new StringWriter(builder));
             var codeBlock = GetFencedCodeBlock();
             renderer.Write(markdownRenderer, codeBlock);
+            Assert.Contains("<span style=\"color:#0000FF;\">var</span>", builder.ToString());
+        }
+
+        [Fact]
+        public void WritesOutColouredCodeWithoutCss() {
+            var underlyingRendererMock = new Mock<CodeBlockRenderer>();
+            underlyingRendererMock
+                .Setup(x => x.Write(It.IsAny<HtmlRenderer>(), It.IsAny<CodeBlock>()));
+            var renderer = new SyntaxHighlightingCodeBlockRenderer(underlyingRendererMock.Object, false);
+            var builder = new StringBuilder();
+            var markdownRenderer = new HtmlRenderer(new StringWriter(builder));
+            var codeBlock = GetFencedCodeBlock();
+            renderer.Write(markdownRenderer, codeBlock);
+            Assert.Contains("<span style=\"color:#0000FF;\">var</span>", builder.ToString());
+        }
+
+        [Fact]
+        public void WritesOutColouredCodeWithCss() {
+            var underlyingRendererMock = new Mock<CodeBlockRenderer>();
+            underlyingRendererMock
+                .Setup(x => x.Write(It.IsAny<HtmlRenderer>(), It.IsAny<CodeBlock>()));
+            var renderer = new SyntaxHighlightingCodeBlockRenderer(underlyingRendererMock.Object, true);
+            var builder = new StringBuilder();
+            var markdownRenderer = new HtmlRenderer(new StringWriter(builder));
+            var codeBlock = GetFencedCodeBlock();
+            renderer.Write(markdownRenderer, codeBlock);
             Assert.Contains("<span class=\"keyword\">var</span>", builder.ToString());
         }
     }

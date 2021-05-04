@@ -12,9 +12,12 @@ namespace Markdig.SyntaxHighlighting.Core
     {
         private readonly CodeBlockRenderer _underlyingRenderer;
 
-        public SyntaxHighlightingCodeBlockRenderer(CodeBlockRenderer underlyingRenderer = null)
+        private bool _isUsingCssClasses;
+
+        public SyntaxHighlightingCodeBlockRenderer(CodeBlockRenderer underlyingRenderer = null, bool isUsingCssClasses = false)
         {
             _underlyingRenderer = underlyingRenderer ?? new CodeBlockRenderer();
+            _isUsingCssClasses = isUsingCssClasses;
         }
 
         protected override void Write(HtmlRenderer renderer, CodeBlock obj)
@@ -65,8 +68,16 @@ namespace Markdig.SyntaxHighlighting.Core
                 return code;
             }
 
-            var colourizer = new HtmlClassFormatter();
-            return colourizer.GetHtmlString(code, language);
+            if (_isUsingCssClasses) 
+            {
+                var colourizer = new HtmlClassFormatter();
+                return colourizer.GetHtmlString(code, language);
+            }
+            else
+            {
+                var colourizer = new HtmlFormatter();
+                return colourizer.GetHtmlString(code, language);
+            }
         }
 
         private static string GetCode(LeafBlock obj, out string firstLine)
