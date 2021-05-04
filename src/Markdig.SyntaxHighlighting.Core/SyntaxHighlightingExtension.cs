@@ -7,6 +7,13 @@ namespace Markdig.SyntaxHighlighting.Core
 {
     public class SyntaxHighlightingExtension : IMarkdownExtension
     {
+        private bool _isUsingCssClasses;
+
+        public SyntaxHighlightingExtension(bool isUsingCssClasses = false)
+        {
+            this._isUsingCssClasses = isUsingCssClasses;
+        }
+
         public void Setup(MarkdownPipelineBuilder pipeline) { }
 
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
@@ -29,7 +36,7 @@ namespace Markdig.SyntaxHighlighting.Core
             }
 
             htmlRenderer.ObjectRenderers.AddIfNotAlready(
-               new SyntaxHighlightingCodeBlockRenderer(originalCodeBlockRenderer));
+               new SyntaxHighlightingCodeBlockRenderer(originalCodeBlockRenderer, _isUsingCssClasses));
         }
     }
 }
